@@ -5,10 +5,10 @@ import matplotlib.pyplot as plt
 import os
 from sklearn.model_selection import train_test_split
 
-# Настройка страницы
+
 st.set_page_config(layout="wide", page_title="Прогноз оценок")
 
-# Загрузка данных и модели
+
 script_dir = os.path.dirname(__file__)
 possible_data_paths = [
     os.path.join(script_dir, "dataset_study.csv"),
@@ -36,18 +36,18 @@ col_left, col_right = st.columns(2)
 with col_left:
     st.header("Визуализация модели")
     
-    # Подготовка данных для графика
+ 
     features = ['study_hours']
     X = df[features]
     y = df['grade']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     y_pred = model.predict(X_test)
 
-    # Построение графика
+
     fig, ax = plt.subplots(figsize=(8, 6))
     ax.scatter(y_test, y_pred, color='green', alpha=0.4, label="Предсказания")
     
-    # Линия идеального прогноза
+
     ax.plot([y.min(), y.max()], [y.min(), y.max()], color='red', lw=2, label="Идеальная точность")
 
     ax.set_xlabel("Реальные оценки")
@@ -60,14 +60,14 @@ with col_left:
     st.header("Инструмент предсказания")
     st.write("Введите количество часов, чтобы узнать примерную оценку:")
     
-    # Ввод данных пользователем
+
     val_hours = st.number_input("Часы обучения (study_hours)", min_value=0.0, max_value=24.0, value=5.0, step=0.5)
 
     if st.button("Рассчитать оценку"):
         input_row = pd.DataFrame([[val_hours]], columns=features)
         res = model.predict(input_row)
         
-        # Ограничим результат разумными рамками (например, от 0 до 100)
+       
         final_score = max(0, min(100, res[0]))
         
         st.write("Результат модели:")
@@ -90,6 +90,6 @@ with col_right:
     st.write("Целевой параметр (что предсказываем):")
     st.code("grade")
 
-    # Примечание: точность лучше выводить динамически или брать из результатов train.py
+    
     st.write("Описание:")
     st.write("Модель анализирует связь между временем, затраченным на учебу, и итоговым баллом. Чем выше плотность точек вдоль красной линии на графике, тем точнее работает алгоритм.")

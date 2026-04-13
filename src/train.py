@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
 
-# ПОИСК ФАЙЛА ПО ВСЕМ ПРАВИЛАМ
+
 base_path = os.path.dirname(__file__)
 possible_paths = [
     os.path.join(base_path, "dataset_study.csv"),
@@ -21,10 +21,10 @@ if not os.path.exists(file_path):
     print("Переместите dataset_study.csv в папку src рядом со скриптом или в папку data на уровень выше.")
     exit()
 
-# ЗАГРУЗКА
+
 df = pd.read_csv(file_path)
 
-# ОСТАЛЬНОЙ КОД
+
 features = ['study_hours']
 X = df[features]
 y = df['grade']
@@ -39,7 +39,7 @@ accuracy = r2_score(y_test, y_pred)
 print(f"РЕЗУЛЬТАТ")
 print(f"Accuracy: {accuracy:.4f}")
 
-# Сохраняем модель в ту же папку src
+
 model_path = os.path.join(base_path, 'study_model.v1')
 joblib.dump(model, model_path)
 print(f"Модель сохранена как {model_path}")

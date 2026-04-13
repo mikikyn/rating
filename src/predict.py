@@ -2,7 +2,7 @@ import joblib
 import pandas as pd
 import os
 
-# Попытка загрузки модели
+
 script_dir = os.path.dirname(__file__)
 model_path = os.path.join(script_dir, 'study_model.v1')
 try:
@@ -14,20 +14,20 @@ except Exception:
 print("СИСТЕМА ПРЕДСКАЗАНИЯ УЧЕБНЫХ РЕЗУЛЬТАТОВ")
 
 try:
-    # Запрос данных у пользователя
+
     study_hours = float(input("Введите количество часов обучения: "))
 
-    # Подготовка данных для модели (имена колонок должны совпадать с обучающей выборкой)
+    
     input_data = pd.DataFrame(
         [[study_hours]],
         columns=['study_hours']
     )
 
-    # Выполнение предсказания
+   
     prediction = model.predict(input_data)
     
     print(f"\nРЕЗУЛЬТАТ ПРОВЕРКИ")
-    # Ограничиваем результат логическим пределом в 100 баллов, если это уместно
+   
     predicted_grade = prediction[0]
     print(f"Предсказанная оценка: {predicted_grade:.2f}")
 
